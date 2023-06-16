@@ -12,7 +12,7 @@ void Runner::run(unique_ptr<Server> server){
 }
 
 void Runner::closeConnectionHandler(int signum) {
-	cout << "Server is shutting down" << endl;
+	cout << "\n\rServer is shutting down" << endl;
 	mServerInstance->closeConnection();
 	exit(signum);
 }
