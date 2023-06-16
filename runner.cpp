@@ -3,31 +3,19 @@
 #include <iostream>
 #include <memory.h>
 #include <memory>
+#include "runner.h"
 
+void Runner::run(unique_ptr<Server> server){
+	signal(SIGINT, Runner::closeConnectionHandler);
+	mServerInstance = std::move(server);
+	mServerInstance->accept_request();
+}
 
-using namespace std;
-class Runner {
-
-public: 
-	static unique_ptr<Server> mServerInstance;
-
-	static void run(unique_ptr<Server> server){
-		signal(SIGINT, Runner::closeConnectionHandler);
-		mServerInstance = move(server);
-		mServerInstance->accept_request();
-	}
-
-	static void closeConnectionHandler(int signum) {
-		cout << "Server is shutting down" << endl;
-		mServerInstance->closeConnection();
-		exit(signum);
-	}
-
-
-private:
-	bool isRunning = false;
-
-};
+void Runner::closeConnectionHandler(int signum) {
+	cout << "Server is shutting down" << endl;
+	mServerInstance->closeConnection();
+	exit(signum);
+}
 
 std::unique_ptr<Server> Runner::mServerInstance;
 

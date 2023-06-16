@@ -15,6 +15,7 @@ public:
 	static void closeConnectionHandler(int signum); 
 
 private:
+	static unique_ptr<Server> mServerInstance;
 	bool isRunning = false;
 
 };
