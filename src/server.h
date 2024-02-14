@@ -18,7 +18,6 @@ class Server {
 
 
 private:
-	int port = 8080;
 	int server_socket; 
 	int bind_addr;
 	bool listening = true; 

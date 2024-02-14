@@ -2,14 +2,13 @@
 #include <sys/socket.h>
 #include <arpa/inet.h>
 #include <unistd.h>
-#include <iostream>
 #include <memory>
 #include "server.h"
-#include <stdio.h>
-#include <signal.h>
 
 using std::unique_ptr;
 using std::make_unique;
+
+#define PORT 8082
 
 unique_ptr<Server> Server::create() {
 	auto server = make_unique<Server>();
@@ -29,7 +28,7 @@ void Server::bind_socket() {
 	struct sockaddr_in server_address;
 	server_address.sin_family = AF_INET;
 	server_address.sin_addr.s_addr = INADDR_ANY;
-	server_address.sin_port = htons(8080);
+	server_address.sin_port = htons(PORT);
 	this->bind_addr = bind(server_socket, (struct sockaddr *)&server_address, sizeof(server_address));
 	listen(server_socket, 3);
 } 
